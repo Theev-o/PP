@@ -3,41 +3,32 @@ package com.company;
 import java.util.Scanner;
 import java.lang.Math.*;
 
-class zadania{
-    static void zad1(){
-        Scanner input = new Scanner(System.in);
 
+public class Main {
+    public static Scanner input = new Scanner(System.in);
+    static void zad1(){
         System.out.println("Name:");
         String imie = input.nextLine();
         System.out.println("Hello " + imie);
     }
 
     static void zad2(){
-        Scanner input = new Scanner(System.in);
 
-        System.out.println("Name:");
-        String param1 = input.nextLine();
-        System.out.println("Age:");
-        String param2 = input.nextLine();
-        System.out.println("School:");
-        String param3 = input.nextLine();
-        System.out.println("Major:");
-        String param4 = input.nextLine();
-        System.out.println("Favorite subject:");
-        String param5 = input.nextLine();
-        System.out.println("Least favorite subject:");
-        String param6 = input.nextLine();
-        System.out.println("Favorite food:");
-        String param7 = input.nextLine();
-        System.out.println("Favorite drink:");
-        String param8 = input.nextLine();
-
-        System.out.println("My name is " + param1 + ", I'm " + param2 + " years old. I go to " + param3 + ", where I study " + param4 + ". My favorite subject is " + param5 + " and my least favorite one is " + param6 + ". I like to eat " + param7 + " and drink " + param8 + ".");
-
+        String[] questions = {"Name: ", "Age: ", "School: ", "Major: ", "Favorite subject: ", "Least favorite subject: "
+                , "Favorite food: ", "Favorite drink: "};
+        String[] answers = new String[questions.length];
+        String[] story = {"My name is ", ", I'm ",  " years old. I go to " , ", where I study ",
+                ". My favorite subject is " , " and my least favorite one is ", ". I like to eat ",  " and drink "};
+        for (int i = 0; i< questions.length; i++){
+            System.out.print(questions[i]);
+            answers[i] = input.nextLine();
+        }
+        for (int i = 0; i < answers.length; i++){
+            System.out.print(story[i] + answers[i]);
+        }
     }
 
     static void zad3(){
-        Scanner input = new Scanner(System.in);
 
         int[] numbers = new int[3];
         int i = 1;
@@ -61,7 +52,6 @@ class zadania{
     }
 
     static void zad4(){
-        Scanner input = new Scanner(System.in);
 
         int[] numbers = new int[5];
 
@@ -113,15 +103,9 @@ class zadania{
 
         System.out.println("The monthly installment comes out to " + installment);
     }
-
-
-}
-
-public class Main {
-
     public static void main(String[] args) {
 
-        zadania.zad6(1320.50f, 30);
+        zad2();
 
     }
 }
