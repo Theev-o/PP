@@ -2,7 +2,10 @@ package com.company;
 
 import java.util.Scanner;
 import java.lang.Math.*;
-
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static Scanner input = new Scanner(System.in);
@@ -103,9 +106,142 @@ public class Main {
 
         System.out.println("The monthly installment comes out to " + installment);
     }
+
+    static void zad7(){
+        Double a, b;
+        Character operator;
+
+        System.out.println("Please input equation. Separate numbers and operator by pressing enter.");
+        a = input.nextDouble();
+        operator = input.next().charAt(0);
+        b = input.nextDouble();
+        switch (operator){
+            case '+':
+                System.out.println(" = " + (double)(a + b));
+                break;
+
+            case '-':
+                System.out.println(" = " + (double)(a - b));
+                break;
+
+            case '*':
+                System.out.println(" = " + (double)(a * b));
+                break;
+
+            case '/':
+                System.out.println(" = " + (double)(a / b));
+                break;
+
+            default:
+                System.out.println("\n " + operator + " is not a recognized operator.");
+        }
+    }
+
+    public static void zad8(int n){
+        long a = 1, b = 1, cache;
+        System.out.println(a);
+        System.out.println(b);
+        for(int i = 0; i < n; i++){
+            cache = b;
+            System.out.println(a+b);
+            b += a;
+            a = cache;
+        }
+    }
+
+    static class zad9{
+        public static void insertSort(int[] numbers){
+            System.out.print("Input: [");
+            for(int number : numbers){
+                System.out.print(" " + number);
+            }
+
+            System.out.print("].");
+            for(int i = 0; i < numbers.length - 1; i++){
+                int tmp;
+                int j = i;
+                while( j >= 0 && numbers[j+1] < numbers[j]){
+                    tmp = numbers[j];
+                    numbers[j] = numbers[j+1];
+                    numbers[j+1] = tmp;
+                    j--;
+                }
+            }
+
+            System.out.print("\nOutput sorted by insert sort: [");
+            for(int number : numbers){
+                System.out.print(" " + number);
+            }
+            System.out.print("].");
+        }
+
+        public static void bubbleSort(int[] numbers){
+            int upperBound = numbers.length-1;
+            int cache;
+            System.out.print("Input: [");
+            for(int number : numbers){
+                System.out.print(" " + number);
+            }
+            while(upperBound > 0) {
+                for (int i = 0; i < upperBound; i++) {
+                    if (numbers[i] > numbers[i + 1]) {
+                        cache = numbers[i + 1];
+                        numbers[i + 1] = numbers[i];
+                        numbers[i] = cache;
+                    }
+                }
+                upperBound--;
+            }
+
+            System.out.print("\nOutput sorted by bubblesort: [");
+            for(int number : numbers){
+                System.out.print(" " + number);
+            }
+            System.out.print("].");
+        }
+
+        public static int[] mergeSort(int[] numbers){
+            if(numbers.length == 1){
+                return numbers;
+            } else {
+                int[] left = mergeSort(Arrays.copyOfRange(numbers, 0, numbers.length/2));
+                int[] right = mergeSort(Arrays.copyOfRange(numbers, numbers.length/2, numbers.length));
+                return merge(left, right);
+            }
+        }
+
+        public static int[] merge(int[] a, int[] b){
+            LinkedList<Integer> listA = new LinkedList<Integer>(IntStream.of(a).boxed().collect(Collectors.toList()));
+            LinkedList<Integer> listB = new LinkedList<Integer>(IntStream.of(b).boxed().collect(Collectors.toList()));
+            int[] mergedArray = new int[a.length + b.length];
+            int i = 0;
+            while(listA.size() != 0 && listB.size() != 0){
+                if(listA.element() < listB.element()){
+                    mergedArray[i] = listA.poll();
+                } else {
+                    mergedArray[i] = listB.poll();
+                }
+                i++;
+            }
+            if(listA.size() == 0){
+                while(listB.size() != 0){
+                    mergedArray[i] = listB.poll();
+                    i++;
+                }
+            } else if (listB.size() == 0){
+                while(listA.size() != 0){
+                    mergedArray[i] = listA.poll();
+                    i++;
+                }
+            }
+            return mergedArray;
+        }
+    }
     public static void main(String[] args) {
-
-        zad2();
-
+        int[] numbers = {1, 5, 7, 3, 8, 4, 9, 0, 2, 6, 34, 72, 24, 63, 12,75, 22, 24,12};
+        int[] sortedNumbers = zad9.mergeSort(numbers);
+        for (int number : sortedNumbers){
+            System.out.print(number + " ");
+        }
     }
 }
